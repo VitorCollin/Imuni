@@ -1,13 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>cadastro</ion-title>
+    <ion-title>Imuni - Cadastro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">cadastro</ion-title>
+      <ion-title size="large">Imuni - Cadastro</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <form [formGroup]="cadastroForm" (ngSubmit)="aoCadastrar()">
+    <ion-item lines="full" class="ion-margin-bottom">
+      <ion-input
+        label="Nome"
+        labelPlacement="floating"
+        type="text"
+        [formControl]="nomeCtrl"
+        placeholder="Insira seu Nome Completo"></ion-input>
+    </ion-item>
+    <ion-item lines="full" class="ion-margin-bottom">
+      <ion-input
+        label="E-mail"
+        labelPlacement="floating"
+        type="email"
+        [formControl]="emailCtrl"
+        placeholder="Insira seu E-mail"></ion-input>
+    </ion-item>
+    <ion-item lines="full" class="ion-margin-bottom">
+      <ion-input
+        label="Senha"
+        labelPlacement="floating"
+        type="password"
+        [formControl]="senhaCtrl"
+        placeholder="Digite sua senha"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" [disabled]="cadastroForm.invalid" class="ion-margin-bottom" id="cadastro-button">Criar Conta</ion-button>
+  </form>
 </ion-content>
