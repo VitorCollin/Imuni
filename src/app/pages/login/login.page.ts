@@ -1,7 +1,7 @@
 import { Component, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonItem, IonButton, IonLabel, IonRouterLink } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonItem, IonButton, IonLabel, IonRouterLink, AlertController } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -16,11 +16,21 @@ export class LoginPage{
   private fb = inject(FormBuilder);
   private authSerivce = inject(AuthService);
   private router = inject(Router);
+  private alertCtrl = inject(AlertController);
 
   public loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     senha: ['', [Validators.required, Validators.minLength(6)]]
   });
+
+  async exibirAlerta(titulo: string, mensagem: string){
+    const alert = await this.alertCtrl.create({
+      header: titulo,
+      message: mensagem,
+      buttons: ['OK']
+    });
+    await alert.present()
+  }
 
   async aoEntrar(){
     if(this.loginForm.valid){
@@ -30,9 +40,14 @@ export class LoginPage{
         await this.authSerivce.login(email, senha);
         console.log('Logado com sucesso');
         this.router.navigate(['/home']);
-      }catch (erro){
+      }catch (erro: any){
         console.error('Erro ao fazer login:', erro);
-        // TODO: Fazer uma alerta visual para o responsavel 
+        let mensagemErro = 'Erro ao realizar login';
+
+        if(erro.code === 'auth/invalid-credential'){
+          mensagemErro = 'E-mail ou senha incorretos'
+        }
+        await this.exibirAlerta('Ops!', mensagemErro);
       }
     }
   }
