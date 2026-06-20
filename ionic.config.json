@@ -1,0 +1,7 @@
+{
+  "name": "Imuni",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
