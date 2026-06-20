@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cadastro - Criança</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Cadastro - Criança</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form [formGroup]="criancaForm" (ngSubmit)="salvarCrianca()">
+    <ion-item lines="full" class="ion-margin-bottom">
+      <ion-input
+      label="Nome da Criança"
+      labelPlacement="floating"
+      type="text"
+      formControlName="nome"
+      placeholder="Insira o nome da Criança">
+      </ion-input>
+    </ion-item>
+
+    <ion-item lines="full" class="ion-margin-bottom">
+      <ion-label>Data de Nascimento</ion-label>
+      <ion-datetime-button datetime="data-nasc"></ion-datetime-button>
+    </ion-item>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime
+        id="data-nasc"
+        presentation="date"
+        formControlName="dtNascimento">
+        </ion-datetime>
+      </ng-template>
+    </ion-modal>
+    <ion-button expand="block" type="submit" [disabled]="criancaForm.invalid" class="ion-margin-top">
+      Salvar Criança
+    </ion-button>
+  </form>
+</ion-content>

@@ -8,7 +8,7 @@ export interface VacinaAplicada{
 }
 
 export interface Crianca{
-    uid: string;
+    uid?: string;
     responsavelId: string;
     nome: string;
     dataNascimento: Date;
