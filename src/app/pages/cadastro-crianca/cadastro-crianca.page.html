@@ -14,11 +14,12 @@
   <form [formGroup]="criancaForm" (ngSubmit)="salvarCrianca()">
     <ion-item lines="full" class="ion-margin-bottom">
       <ion-input
-      label="Nome da Criança"
-      labelPlacement="floating"
-      type="text"
-      formControlName="nome"
-      placeholder="Insira o nome da Criança">
+        label="Nome da Criança"
+        labelPlacement="floating"
+        type="text"
+        formControlName="nome"
+        placeholder="Insira o nome da Criança"
+      >
       </ion-input>
     </ion-item>
 
@@ -29,13 +30,19 @@
     <ion-modal [keepContentsMounted]="true">
       <ng-template>
         <ion-datetime
-        id="data-nasc"
-        presentation="date"
-        formControlName="dtNascimento">
+          id="data-nasc"
+          presentation="date"
+          formControlName="dtNascimento"
+        >
         </ion-datetime>
       </ng-template>
     </ion-modal>
-    <ion-button expand="block" type="submit" [disabled]="criancaForm.invalid" class="ion-margin-top">
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="criancaForm.invalid"
+      class="ion-margin-top"
+    >
       Salvar Criança
     </ion-button>
   </form>

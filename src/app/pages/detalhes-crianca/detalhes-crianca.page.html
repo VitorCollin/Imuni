@@ -13,27 +13,47 @@
 
   <ion-list lines="none">
     @for (vacina of vacinas(); track vacina.id) {
-      <ion-card>
-        <ion-card-header>
-          
-          <ion-card-title>{{vacina.nome}}</ion-card-title>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{vacina.nome}}</ion-card-title>
 
-          <ion-card-subtitle>{{vacina.dose}}</ion-card-subtitle>
-          <ion-button fill="clear" [routerLink]="['/detalhes-vacina', vacina.id, idCrianca]">Detalhes</ion-button>
-        </ion-card-header>
-        <ion-card-content>{{vacina.dataPrevista | date: 'dd/MM/yyyy'}}</ion-card-content>
-        @if (obterStatusAtual(vacina) == 'Aplicada') {
-          <ion-card-content class="card-verde">Aplicada em: {{vacina.dataAplicacao | date: 'dd/MM/yyyy'}}</ion-card-content>
-        } @else if (obterStatusAtual(vacina) == 'Atrasada') {
-          <ion-card-content class="card-vermelho">Atrasada</ion-card-content>
-          <ion-button fill="outline" shape="round" color="success" (click)="abriConfirmacaoAplicacao(vacina)" >Marcar como Aplicada</ion-button>
-        } @else {
-          <ion-card-content class="card-amarelo">Pendente</ion-card-content>
-          <ion-button fill="outline" shape="round" color="success" (click)="abriConfirmacaoAplicacao(vacina)">Marcar como Aplicada</ion-button>
-        }
-      </ion-card>
+        <ion-card-subtitle>{{vacina.dose}}</ion-card-subtitle>
+        <ion-button
+          fill="clear"
+          [routerLink]="['/detalhes-vacina', vacina.id, idCrianca]"
+          >Detalhes</ion-button
+        >
+      </ion-card-header>
+      <ion-card-content
+        >{{vacina.dataPrevista | date: 'dd/MM/yyyy'}}</ion-card-content
+      >
+      @if (obterStatusAtual(vacina) == 'Aplicada') {
+      <ion-card-content class="card-verde"
+        >Aplicada em: {{vacina.dataAplicacao | date:
+        'dd/MM/yyyy'}}</ion-card-content
+      >
+      } @else if (obterStatusAtual(vacina) == 'Atrasada') {
+      <ion-card-content class="card-vermelho">Atrasada</ion-card-content>
+      <ion-button
+        fill="outline"
+        shape="round"
+        color="success"
+        (click)="abriConfirmacaoAplicacao(vacina)"
+        >Marcar como Aplicada</ion-button
+      >
+      } @else {
+      <ion-card-content class="card-amarelo">Pendente</ion-card-content>
+      <ion-button
+        fill="outline"
+        shape="round"
+        color="success"
+        (click)="abriConfirmacaoAplicacao(vacina)"
+        >Marcar como Aplicada</ion-button
+      >
+      }
+    </ion-card>
     }@empty {
-      <p>Erro ao recuperar carteira vacinal</p>
+    <p>Erro ao recuperar carteira vacinal</p>
     }
   </ion-list>
 </ion-content>

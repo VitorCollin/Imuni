@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Imuni - Home
-    </ion-title>
+    <ion-title> Imuni - Home </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,18 +11,70 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-list lines="none">
-    @for (crianca of criancas(); track crianca.uid) {
-      <ion-card [routerLink]="['/detalhes-crianca', crianca.uid]" button="true" >
+  @if (campanhas().length > 0) {
+  <div class="secao-campanhas">
+    <ion-list-header>
+      <ion-title>Campanhas Ativas em Campinas</ion-title>
+    </ion-list-header>
+
+    <div class="scroll-horizontal">
+      @for (campanha of campanhas(); track campanha.id) {
+      <ion-card color="tertiary" class="card-campanha">
         <ion-card-header>
-          <ion-card-title>{{crianca.nome}}</ion-card-title>
-          <ion-card-subtitle>Nascimento:  {{crianca.dataNascimento | date: 'dd/MM/yyyy'}}</ion-card-subtitle>
+          <ion-card-subtitle
+            >Válido até {{ campanha.dataFim }}</ion-card-subtitle
+          >
+          <ion-card-title>{{ campanha.titulo }}</ion-card-title>
         </ion-card-header>
+
+        <ion-card-content>
+          <p>{{ campanha.descricao }}</p>
+
+          <div class="locais-container ion-margin-top">
+            <strong>Onde vacinar:</strong>
+            <ion-chip
+              (click)="buscarUbsMaisProxima()"
+              color="light"
+              outline="true"
+              >{{ campanha.locais }}</ion-chip
+            >
+          </div>
+        </ion-card-content>
       </ion-card>
+      }
+    </div>
+  </div>
+  }@else {
+  <ion-title>Sem campanhas ativas na região</ion-title>
+  }
+
+  <ion-list lines="none">
+    <ion-title>Crianças</ion-title>
+    @for (crianca of criancas(); track crianca.uid) {
+    <ion-card [routerLink]="['/detalhes-crianca', crianca.uid]" button="true">
+      <ion-card-header>
+        <ion-card-title>{{crianca.nome}}</ion-card-title>
+        <ion-card-subtitle
+          >Nascimento: {{crianca.dataNascimento | date:
+          'dd/MM/yyyy'}}</ion-card-subtitle
+        >
+      </ion-card-header>
+    </ion-card>
     }@empty {
-      <p>Nenhuma criança cadastrada ainda.</p>
+    <p>Nenhuma criança cadastrada ainda.</p>
     }
   </ion-list>
-
+  <ion-card class="card-ubs" (click)="buscarUbsMaisProxima()" button="true">
+    <ion-item lines="none">
+      <ion-icon slot="start" name="map-outline" class="icone-mapa"></ion-icon>
+      <ion-label>
+        <h2>Ir para o Posto de Saúde</h2>
+        <p>Encontre o Centro de Saúde (CS) mais próximo de você agora.</p>
+      </ion-label>
+      <ion-button slot="end" fill="clear" color="light">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-card>
   <ion-button href="/cadastro-crianca">Cadastrar Criança</ion-button>
 </ion-content>

@@ -18,7 +18,8 @@
         labelPlacement="floating"
         type="text"
         [formControl]="nomeCtrl"
-        placeholder="Insira seu Nome Completo"></ion-input>
+        placeholder="Insira seu Nome Completo"
+      ></ion-input>
     </ion-item>
     <ion-item lines="full" class="ion-margin-bottom">
       <ion-input
@@ -26,7 +27,8 @@
         labelPlacement="floating"
         type="email"
         [formControl]="emailCtrl"
-        placeholder="Insira seu E-mail"></ion-input>
+        placeholder="Insira seu E-mail"
+      ></ion-input>
     </ion-item>
     <ion-item lines="full" class="ion-margin-bottom">
       <ion-input
@@ -34,8 +36,15 @@
         labelPlacement="floating"
         type="password"
         [formControl]="senhaCtrl"
-        placeholder="Digite sua senha"></ion-input>
+        placeholder="Digite sua senha"
+      ></ion-input>
     </ion-item>
-    <ion-button expand="block" type="submit" [disabled]="cadastroForm.invalid" class="ion-margin-bottom">Criar Conta</ion-button>
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="cadastroForm.invalid"
+      class="ion-margin-bottom"
+      >Criar Conta</ion-button
+    >
   </form>
 </ion-content>

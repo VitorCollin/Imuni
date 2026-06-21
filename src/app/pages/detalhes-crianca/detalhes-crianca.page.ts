@@ -1,7 +1,20 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, AlertController } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonList,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardContent,
+  IonButton,
+  AlertController,
+} from '@ionic/angular/standalone';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CriancaService } from 'src/app/core/services/crianca.service';
 import { Vacina } from 'src/app/core/models/vacina.model';
@@ -12,7 +25,22 @@ import { switchMap } from 'rxjs';
   templateUrl: './detalhes-crianca.page.html',
   styleUrls: ['./detalhes-crianca.page.scss'],
   standalone: true,
-  imports: [IonButton, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
+  imports: [
+    IonButton,
+    IonCardContent,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardHeader,
+    IonCard,
+    IonList,
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
+    FormsModule,
+    RouterLink,
+  ],
 })
 export class DetalhesCriancaPage implements OnInit {
   private route = inject(ActivatedRoute);
@@ -21,40 +49,42 @@ export class DetalhesCriancaPage implements OnInit {
   public vacinas = signal<Vacina[]>([]);
   public idCrianca: string | null = '';
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.route.paramMap.pipe(
-      switchMap(params => {
-        const id = params.get('id');
-        console.log('Id Capturado da URL', id)
-        if(id){
-          this.idCrianca = id
-          return this.criancaService.listarVacinasCrianca(id);
-        }
-        return [];
-      })
-    ).subscribe(dados => {
-      console.log('Vacinas retornada do Firestore', dados)
-      this.vacinas.set(dados)
-    });
+    this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          const id = params.get('id');
+          console.log('Id Capturado da URL', id);
+          if (id) {
+            this.idCrianca = id;
+            return this.criancaService.listarVacinasCrianca(id);
+          }
+          return [];
+        }),
+      )
+      .subscribe((dados) => {
+        console.log('Vacinas retornada do Firestore', dados);
+        this.vacinas.set(dados);
+      });
   }
 
-  obterStatusAtual(vacina: Vacina): 'Pendente' | 'Aplicada' | 'Atrasada'{ 
-    if(vacina.status === 'Aplicada'){
-      return'Aplicada';
+  obterStatusAtual(vacina: Vacina): 'Pendente' | 'Aplicada' | 'Atrasada' {
+    if (vacina.status === 'Aplicada') {
+      return 'Aplicada';
     }
     const hojeStr = new Date().toISOString().split('T')[0];
-    if(vacina.dataPrevista < hojeStr){
-      return'Atrasada';
+    if (vacina.dataPrevista < hojeStr) {
+      return 'Atrasada';
     }
-    return'Pendente';
+    return 'Pendente';
   }
 
-  async abriConfirmacaoAplicacao(vacina: Vacina){
-    const idCriancaAtual = this.route.snapshot.paramMap.get('id')
-    
-    if(!idCriancaAtual){
+  async abriConfirmacaoAplicacao(vacina: Vacina) {
+    const idCriancaAtual = this.route.snapshot.paramMap.get('id');
+
+    if (!idCriancaAtual) {
       console.error('Não foi possivel encontrar o ID da criança na URL');
       return;
     }
@@ -66,30 +96,34 @@ export class DetalhesCriancaPage implements OnInit {
       header: `Aplicar ${vacina.nome}`,
       subHeader: vacina.dose,
       message: 'Confirme a data em que a vacina foi aplicada:',
-      inputs:[
+      inputs: [
         {
           name: 'dataAplicacao',
           type: 'date',
           value: hojeStr,
-          max: hojeStr
-        }
+          max: hojeStr,
+        },
       ],
-      buttons:[
+      buttons: [
         {
           text: 'Cancelar',
-          role: 'cancel'
+          role: 'cancel',
         },
         {
           text: 'Confirmar',
           handler: async (dadosDoFormulario) => {
             const dataEscolhida = dadosDoFormulario.dataAplicacao;
-            if(!dataEscolhida || !vacina.id) return false
+            if (!dataEscolhida || !vacina.id) return false;
 
-            await this.criancaService.marcarComoAplicada(idCriancaAtual, vacina.id, dataEscolhida);
+            await this.criancaService.marcarComoAplicada(
+              idCriancaAtual,
+              vacina.id,
+              dataEscolhida,
+            );
             return true;
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     await alerta.present();
   }
