@@ -24,8 +24,10 @@
           <ion-card-content class="card-verde">Aplicada</ion-card-content>
         } @else if (obterStatusAtual(vacina) == 'Atrasada') {
           <ion-card-content class="card-vermelho">Atrasada</ion-card-content>
+          <ion-button fill="outline" shape="round" color="success" (click)="abriConfirmacaoAplicacao(vacina)" >Marcar como Aplicada</ion-button>
         } @else {
           <ion-card-content class="card-amarelo">Pendente</ion-card-content>
+          <ion-button fill="outline" shape="round" color="success" (click)="abriConfirmacaoAplicacao(vacina)">Marcar como Aplicada</ion-button>
         }
       </ion-card>
     }@empty {
