@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Carteira Vacinal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Carteira Vacinal</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list lines="none">
+    @for (vacina of vacinas(); track vacina.id) {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{vacina.nome}}</ion-card-title>
+
+          <ion-card-subtitle>{{vacina.dose}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>{{vacina.dataPrevista | date: 'dd/MM/yyyy'}}</ion-card-content>
+        @if (obterStatusAtual(vacina) == 'Aplicada') {
+          <ion-card-content class="card-verde">Aplicada</ion-card-content>
+        } @else if (obterStatusAtual(vacina) == 'Atrasada') {
+          <ion-card-content class="card-vermelho">Atrasada</ion-card-content>
+        } @else {
+          <ion-card-content class="card-amarelo">Pendente</ion-card-content>
+        }
+      </ion-card>
+    }@empty {
+      <p>Erro ao recuperar carteira vacinal</p>
+    }
+  </ion-list>
+</ion-content>

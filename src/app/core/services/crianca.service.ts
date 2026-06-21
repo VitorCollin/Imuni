@@ -39,6 +39,11 @@ export class CriancaService {
   listarCriancas(responsavelId: string){
     const colecao = collection(this.firestore,"criancas");
     const busca = query(colecao, where('responsavelId', '==', responsavelId));
-    return collectionData(busca, {idField: 'id'}) as Observable<Crianca[]>;
+    return collectionData(busca, {idField: 'uid'}) as Observable<Crianca[]>;
+  }
+
+  listarVacinasCrianca(criancaId: string): Observable<Vacina[]>{
+    const colecaoVacinas = collection(this.firestore, 'criancas', criancaId, 'vacinas');
+    return collectionData(colecaoVacinas, {idField: 'id'}) as Observable<Vacina[]>;
   }
 }
