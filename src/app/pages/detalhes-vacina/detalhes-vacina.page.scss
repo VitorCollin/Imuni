@@ -1,0 +1,44 @@
+.topo-detalhe {
+  padding: 32px 20px;
+  text-align: center;
+  color: white;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  margin-bottom: 16px;
+  
+  // Cores dinâmicas baseadas no status que vem do banco
+  &.Aplicada { background: linear-gradient(135deg, #2dd36f, #10dc60); }
+  &.Atrasada { background: linear-gradient(135deg, #eb445a, #ff4961); }
+  &.Pendente { background: linear-gradient(135deg, #3880ff, #50c8ff); }
+
+  h2 {
+    font-weight: 700;
+    margin: 10px 0 4px;
+    font-size: 1.5rem;
+  }
+
+  p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.badge-status {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+ion-accordion {
+  border: 1px solid var(--ion-color-light-shade);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}

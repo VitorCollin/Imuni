@@ -8,4 +8,6 @@ export interface Vacina{
     status: 'Pendente' | 'Aplicada' | 'Atrasada'
     lote?: string;
     unidadeSaude?: string;
-}
+    descricao: string;
+    reacoes: string;
+};

@@ -1,13 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Carteira Vacinal</ion-title>
+    <ion-title>Imuni - Carteira Vacinal</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Carteira Vacinal</ion-title>
+      <ion-title size="large">Imuni - Carteira Vacinal</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -15,13 +15,15 @@
     @for (vacina of vacinas(); track vacina.id) {
       <ion-card>
         <ion-card-header>
+          
           <ion-card-title>{{vacina.nome}}</ion-card-title>
 
           <ion-card-subtitle>{{vacina.dose}}</ion-card-subtitle>
+          <ion-button fill="clear" [routerLink]="['/detalhes-vacina', vacina.id, idCrianca]">Detalhes</ion-button>
         </ion-card-header>
         <ion-card-content>{{vacina.dataPrevista | date: 'dd/MM/yyyy'}}</ion-card-content>
         @if (obterStatusAtual(vacina) == 'Aplicada') {
-          <ion-card-content class="card-verde">Aplicada</ion-card-content>
+          <ion-card-content class="card-verde">Aplicada em: {{vacina.dataAplicacao | date: 'dd/MM/yyyy'}}</ion-card-content>
         } @else if (obterStatusAtual(vacina) == 'Atrasada') {
           <ion-card-content class="card-vermelho">Atrasada</ion-card-content>
           <ion-button fill="outline" shape="round" color="success" (click)="abriConfirmacaoAplicacao(vacina)" >Marcar como Aplicada</ion-button>

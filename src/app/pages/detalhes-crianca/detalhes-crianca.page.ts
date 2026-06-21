@@ -2,9 +2,9 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, AlertController } from '@ionic/angular/standalone';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CriancaService } from 'src/app/core/services/crianca.service';
-import { Vacina } from 'src/app/core/models/vanica.model';
+import { Vacina } from 'src/app/core/models/vacina.model';
 import { switchMap } from 'rxjs';
 
 @Component({
@@ -12,14 +12,14 @@ import { switchMap } from 'rxjs';
   templateUrl: './detalhes-crianca.page.html',
   styleUrls: ['./detalhes-crianca.page.scss'],
   standalone: true,
-  imports: [IonButton, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonButton, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
 export class DetalhesCriancaPage implements OnInit {
   private route = inject(ActivatedRoute);
   private criancaService = inject(CriancaService);
   private alertController = inject(AlertController);
   public vacinas = signal<Vacina[]>([]);
-  public idCrianca: string = '';
+  public idCrianca: string | null = '';
 
   constructor() { }
 
@@ -29,12 +29,13 @@ export class DetalhesCriancaPage implements OnInit {
         const id = params.get('id');
         console.log('Id Capturado da URL', id)
         if(id){
+          this.idCrianca = id
           return this.criancaService.listarVacinasCrianca(id);
         }
         return [];
       })
     ).subscribe(dados => {
-      console.log('Vacinas retornadas do Firestore', dados)
+      console.log('Vacinas retornada do Firestore', dados)
       this.vacinas.set(dados)
     });
   }

@@ -28,4 +28,8 @@ export const routes: Routes = [
     path: 'detalhes-crianca/:id',
     loadComponent: () => import('./pages/detalhes-crianca/detalhes-crianca.page').then( m => m.DetalhesCriancaPage)
   },
+  {
+    path: 'detalhes-vacina/:id/:idCrianca',
+    loadComponent: () => import('./pages/detalhes-vacina/detalhes-vacina.page').then( m => m.DetalhesVacinaPage)
+  },
 ];

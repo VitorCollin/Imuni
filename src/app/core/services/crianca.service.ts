@@ -3,7 +3,7 @@ import { Firestore, collection, addDoc, query, where,collectionData, doc, update
 import { Crianca } from '../models/crianca.model';
 import { Observable } from 'rxjs';
 import { CALENDARIO_VACINAL } from '../constants/calendario-vacnial.constant';
-import { Vacina } from '../models/vanica.model';
+import { Vacina } from '../models/vacina.model';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +30,8 @@ export class CriancaService {
         idadeRecomendadaMeses: vacina.idadeRecomendadaMeses,
         dataPrevista: dataPrevista,
         status: 'Pendente',
+        descricao: vacina.descricao,
+        reacoes: vacina.reacoes,
       }
       const subColecaoVacinas = collection(this.firestore,'criancas', docRef.id, 'vacinas')
       await addDoc(subColecaoVacinas, novaVacina);
