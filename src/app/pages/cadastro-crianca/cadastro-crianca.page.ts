@@ -61,8 +61,8 @@ export class CadastroCriancaPage {
         this.exibirAlerta('Sucesso!', 'Criança cadastrada com sucesso!')
         this.router.navigate(['/home']);
       }catch(erro){
-        console.error("Erro ao cadastrar crinaça", erro)
-        this.exibirAlerta('Falha', 'Falha as cadastrar crinaça, tente novamente')
+        console.error("Erro ao cadastrar criança", erro)
+        this.exibirAlerta('Falha', 'Falha as cadastrar criança, tente novamente')
       }
     }
   }

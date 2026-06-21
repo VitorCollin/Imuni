@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,11 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private auth: Auth = inject(Auth);
-  public usuarioAtual = signal<User | null | undefined>(undefined);
+  public usuarioAtual = signal<User | null>(null);
 
   constructor(){
-    user(this.auth).subscribe((user) => {
-      this.usuarioAtual.set(user);
+    onAuthStateChanged(this.auth, (user) =>{
+      if(user){
+        this.usuarioAtual.set(user);
+      } else {
+        this.usuarioAtual.set(null)
+      }
     })
   }
 

@@ -2,17 +2,38 @@ import { inject, Injectable } from '@angular/core';
 import { Firestore, collection, addDoc, query, where,collectionData } from '@angular/fire/firestore';
 import { Crianca } from '../models/crianca.model';
 import { Observable } from 'rxjs';
+import { CALENDARIO_VACINAL } from '../constants/calendario-vacnial.constant';
+import { Vacina } from '../models/vanica.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CriancaService {
-
   private firestore: Firestore = inject(Firestore)
 
+  private calcularDataPrevista(dataNascimento: string, mesesParaSomar: number): string{
+    const data = new Date(dataNascimento + 'T00:00:00');
+    data.setMonth(data.getMonth() + mesesParaSomar);
+    return data.toISOString().split('T')[0];
+  }
+
   async cadastroCrianca(crianca: Crianca){
-    const colecao = collection(this.firestore, 'criancas')
-    await addDoc(colecao,crianca);
+    const colecao = collection(this.firestore, 'criancas');
+    const docRef = await addDoc(colecao,crianca);
+    
+    for (const vacina of  CALENDARIO_VACINAL) {
+      const dataPrevista = this.calcularDataPrevista(crianca.dataNascimento, vacina.idadeRecomendadaMeses);
+
+      const novaVacina: Vacina = {
+        nome: vacina.nome,
+        dose: vacina.dose,
+        idadeRecomendadaMeses: vacina.idadeRecomendadaMeses,
+        dataPrevista: dataPrevista,
+        status: 'Pendente',
+      }
+      const subColecaoVacinas = collection(this.firestore,'criancas', docRef.id, 'vacinas')
+      await addDoc(subColecaoVacinas, novaVacina);
+    }
   }
   
   listarCriancas(responsavelId: string){
