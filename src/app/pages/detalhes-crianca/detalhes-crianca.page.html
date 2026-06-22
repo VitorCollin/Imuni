@@ -11,6 +11,17 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-buttons>
+    <ion-button
+      size="large"
+      color="danger"
+      class="botao-excluir"
+      (click)="confirmarExclusao()"
+    >
+      Deletar Criança
+    </ion-button>
+  </ion-buttons>
+
   <ion-list lines="none">
     @for (vacina of vacinas(); track vacina.id) {
     <ion-card>

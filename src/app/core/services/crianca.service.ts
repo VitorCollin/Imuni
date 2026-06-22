@@ -8,9 +8,10 @@ import {
   collectionData,
   doc,
   updateDoc,
+  deleteDoc,
 } from '@angular/fire/firestore';
 import { Crianca } from '../models/crianca.model';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { CALENDARIO_VACINAL } from '../constants/calendario-vacnial.constant';
 import { Vacina } from '../models/vacina.model';
 
@@ -93,5 +94,11 @@ export class CriancaService {
       status: 'Aplicada',
       dataAplicacao: dataAplicacao,
     });
+  }
+
+  removerCriança(criancaId: string): Observable<void> {
+    const docRef = doc(this.firestore, 'criancas', criancaId);
+
+    return from(deleteDoc(docRef));
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -21,6 +21,7 @@ import {
   IonDatetime,
   IonButton,
   IonInput,
+  IonSpinner,
 } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
@@ -33,6 +34,7 @@ import { CriancaService } from 'src/app/core/services/crianca.service';
   styleUrls: ['./cadastro-crianca.page.scss'],
   standalone: true,
   imports: [
+    IonSpinner,
     IonInput,
     IonButton,
     IonDatetime,
@@ -55,6 +57,7 @@ export class CadastroCriancaPage {
   private router = inject(Router);
   private alertCtrl = inject(AlertController);
   private criancaService = inject(CriancaService);
+  public salvando = signal<boolean>(false);
 
   public criancaForm: FormGroup = this.fb.group({
     nome: ['', [Validators.required]],
@@ -82,6 +85,10 @@ export class CadastroCriancaPage {
   }
 
   async salvarCrianca() {
+    if (this.salvando()) return;
+
+    this.salvando.set(true);
+
     if (this.criancaForm.valid) {
       const nome = this.criancaForm.value.nome;
       const dtNascimento = this.criancaForm.value.dtNascimento;
@@ -101,6 +108,7 @@ export class CadastroCriancaPage {
       try {
         await this.criancaService.cadastroCrianca(novaCrianca);
         this.exibirAlerta('Sucesso!', 'Criança cadastrada com sucesso!');
+        this.salvando.set(false);
         this.router.navigate(['/home']);
       } catch (erro) {
         console.error('Erro ao cadastrar criança', erro);
@@ -108,6 +116,7 @@ export class CadastroCriancaPage {
           'Falha',
           'Falha as cadastrar criança, tente novamente',
         );
+        this.salvando.set(false);
       }
     }
   }

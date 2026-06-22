@@ -14,8 +14,11 @@ import {
   IonCardContent,
   IonButton,
   AlertController,
+  IonButtons,
+  IonIcon,
+  IonLabel,
 } from '@ionic/angular/standalone';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CriancaService } from 'src/app/core/services/crianca.service';
 import { Vacina } from 'src/app/core/models/vacina.model';
 import { switchMap } from 'rxjs';
@@ -26,6 +29,8 @@ import { switchMap } from 'rxjs';
   styleUrls: ['./detalhes-crianca.page.scss'],
   standalone: true,
   imports: [
+    IonLabel,
+    IonButtons,
     IonButton,
     IonCardContent,
     IonCardSubtitle,
@@ -44,6 +49,7 @@ import { switchMap } from 'rxjs';
 })
 export class DetalhesCriancaPage implements OnInit {
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private criancaService = inject(CriancaService);
   private alertController = inject(AlertController);
   public vacinas = signal<Vacina[]>([]);
@@ -126,5 +132,39 @@ export class DetalhesCriancaPage implements OnInit {
       ],
     });
     await alerta.present();
+  }
+
+  async confirmarExclusao() {
+    const criancaId = this.route.snapshot.paramMap.get('id');
+    if (!criancaId) return;
+
+    const alert = await this.alertController.create({
+      header: 'Atenção',
+      message: 'Deseja realmente remover o perfil desta criança?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'alert-button-cancel',
+        },
+        {
+          text: 'Confirmar e Excluir',
+          role: 'destructive',
+          handler: () => {
+            this.executarExclusao(criancaId);
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  private executarExclusao(id: string) {
+    this.criancaService.removerCriança(id).subscribe({
+      next: () => {
+        this.router.navigate(['/home']);
+      },
+      error: (err) => console.error('Erro ao deletar', err),
+    });
   }
 }

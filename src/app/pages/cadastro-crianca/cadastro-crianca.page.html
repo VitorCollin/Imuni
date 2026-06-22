@@ -41,9 +41,15 @@
       expand="block"
       type="submit"
       [disabled]="criancaForm.invalid"
+      [disabled]="salvando()"
       class="ion-margin-top"
     >
-      Salvar Criança
+      @if(salvando()){
+      <ion-spinner name="crescent"></ion-spinner>
+      <ion-label> Salvando...</ion-label>
+      } @else {
+      <ion-label>Cadastrar Criança</ion-label>
+      }
     </ion-button>
   </form>
 </ion-content>
