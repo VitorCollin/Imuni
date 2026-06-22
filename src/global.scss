@@ -34,4 +34,135 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+@import "@ionic/angular/css/palettes/dark.system.css";
+
+.info-cs {
+  color: #473c33 !important;
+}
+
+ion-item {
+  border-radius: 1.5rem;
+  --color: #473c33;
+  padding-top: 0.5rem;
+  --background: #fec868;
+  --border-color: transparent;
+}
+
+.info-ubs {
+  --background: #abc270;
+}
+
+ion-label {
+  --color: #473c33;
+}
+
+ion-chip {
+  --color: #473c33;
+  --background: #fec868;
+}
+
+.button-detail {
+  --background: #fda769;
+  margin: 0 !important;
+}
+
+ion-button {
+  display: flex;
+  justify-content: center;
+  margin: auto !important;
+  --background: #fda769;
+  width: fit-content;
+}
+
+ion-toolbar {
+  --background: #fda769;
+  --color: #473c33;
+}
+
+ion-list {
+  --background: transparent !important;
+  background-color: transparent !important;
+}
+
+ion-content ion-title {
+  margin-top: 1rem;
+  --color: #473c33;
+}
+
+ion-card-subtitle {
+  --color: #473c33;
+}
+
+ion-card-title {
+  --color: #473c33;
+}
+ion-card {
+  --background: #abc270;
+  --color: #473c33;
+  border-left: 6px solid #473c33;
+}
+
+ion-content {
+  --background: linear-gradient(135deg, #abc270, #fda769);
+}
+
+ion-content ion-header ion-toolbar {
+  --background: #fda769 !important;
+  --color: #473c33;
+  border: none;
+}
+
+ion-button:hover {
+  --background: #fec868 !important;
+}
+
+ion-header ion-toolbar {
+  --background: #fda769;
+  --color: #473c33;
+  border: none;
+}
+
+ion-header ion-title {
+  margin-top: 0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+ion-list-header {
+  text-align: center;
+  border-radius: 1.5rem;
+  --background: #fda769;
+}
+
+ion-list-header,
+ion-label {
+  font-weight: bold;
+  color: #473c33;
+}
+
+ion-accordion-group {
+  background-color: transparent !important;
+  --background: transparent !important;
+  border-color: transparent !important;
+}
+ion-accordion {
+  border-color: transparent !important;
+  background: transparent !important;
+  --background: #fda769 !important;
+  margin: 0; /* Remove espaçamentos que revelam o fundo de trás */
+}
+
+.accordion {
+  background-color: #fda769;
+  color: #473c33;
+  margin: 0;
+}
+
+.campanha-title {
+  padding-top: 1rem;
+  color: #473c33;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}

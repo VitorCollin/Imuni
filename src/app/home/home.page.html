@@ -13,13 +13,10 @@
 
   @if (campanhas().length > 0) {
   <div class="secao-campanhas">
-    <ion-list-header>
-      <ion-title>Campanhas Ativas em Campinas</ion-title>
-    </ion-list-header>
-
+    <ion-label class="campanha-title">Campanhas Ativas em Campinas</ion-label>
     <div class="scroll-horizontal">
       @for (campanha of campanhas(); track campanha.id) {
-      <ion-card color="tertiary" class="card-campanha">
+      <ion-card class="card-campanha">
         <ion-card-header>
           <ion-card-subtitle
             >Válido até {{ campanha.dataFim }}</ion-card-subtitle
@@ -32,10 +29,7 @@
 
           <div class="locais-container ion-margin-top">
             <strong>Onde vacinar:</strong>
-            <ion-chip
-              (click)="buscarUbsMaisProxima()"
-              color="light"
-              outline="true"
+            <ion-chip (click)="buscarUbsMaisProxima()"
               >{{ campanha.locais }}</ion-chip
             >
           </div>
@@ -48,8 +42,8 @@
   <ion-title>Sem campanhas ativas na região</ion-title>
   }
 
-  <ion-list lines="none">
-    <ion-title>Crianças</ion-title>
+  <ion-list>
+    <ion-label class="campanha-title">Crianças</ion-label>
     @for (crianca of criancas(); track crianca.uid) {
     <ion-card [routerLink]="['/detalhes-crianca', crianca.uid]" button="true">
       <ion-card-header>
@@ -65,11 +59,13 @@
     }
   </ion-list>
   <ion-card class="card-ubs" (click)="buscarUbsMaisProxima()" button="true">
-    <ion-item lines="none">
+    <ion-item class="info-ubs" lines="none">
       <ion-icon slot="start" name="map-outline" class="icone-mapa"></ion-icon>
       <ion-label>
         <h2>Ir para o Posto de Saúde</h2>
-        <p>Encontre o Centro de Saúde (CS) mais próximo de você agora.</p>
+        <p class="info-cs">
+          Encontre o Centro de Saúde (CS) mais próximo de você agora.
+        </p>
       </ion-label>
       <ion-button slot="end" fill="clear" color="light">
         <ion-icon name="arrow-forward-outline"></ion-icon>

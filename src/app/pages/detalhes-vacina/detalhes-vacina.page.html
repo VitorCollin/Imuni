@@ -13,7 +13,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="topo-detalhe" [ngClass]="vacina()?.status">
+  <div class="topo-detalhe">
     <span class="badge-status">{{ vacina()?.status }}</span>
     <h2>{{ vacina()?.nome }}</h2>
     <p>{{ vacina()?.dose }}</p>
@@ -24,7 +24,6 @@
     </ion-list-header>
 
     <ion-item>
-      <ion-icon slot="start" name="calendar-outline" color="primary"></ion-icon>
       <ion-label>
         <h3>Data Prevista</h3>
         <p>{{ vacina()?.dataPrevista | date: 'dd/MM/yyyy' }}</p>
@@ -33,7 +32,6 @@
 
     @if (vacina()?.status === 'Aplicada') {
     <ion-item>
-      <ion-icon slot="start" name="checkmark-circle" color="success"></ion-icon>
       <ion-label>
         <h3>Aplicada em</h3>
         <p>{{ vacina()?.dataAplicacao | date: 'dd/MM/yyyy' }}</p>
@@ -44,19 +42,23 @@
 
   <ion-accordion-group class="ion-padding-horizontal">
     <ion-accordion value="sobre">
-      <ion-item slot="header" color="light">
+      <ion-item slot="header">
         <ion-icon slot="start" name="shield-checkmark-outline"></ion-icon>
         <ion-label>Para que serve?</ion-label>
       </ion-item>
-      <div class="ion-padding" slot="content">{{vacina()!.descricao}}</div>
+      <div class="ion-padding accordion" slot="content">
+        {{vacina()!.descricao}}
+      </div>
     </ion-accordion>
 
     <ion-accordion value="reacoes">
-      <ion-item slot="header" color="light">
+      <ion-item slot="header">
         <ion-icon slot="start" name="alert-circle-outline"></ion-icon>
         <ion-label>Possíveis Reações</ion-label>
       </ion-item>
-      <div class="ion-padding" slot="content">{{vacina()!.reacoes}}</div>
+      <div class="ion-padding accordion" slot="content">
+        {{vacina()!.reacoes}}
+      </div>
     </ion-accordion>
   </ion-accordion-group>
 </ion-content>

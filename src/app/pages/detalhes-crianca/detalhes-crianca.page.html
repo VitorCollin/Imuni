@@ -19,7 +19,7 @@
 
         <ion-card-subtitle>{{vacina.dose}}</ion-card-subtitle>
         <ion-button
-          fill="clear"
+          class="button-detail"
           [routerLink]="['/detalhes-vacina', vacina.id, idCrianca]"
           >Detalhes</ion-button
         >
@@ -34,22 +34,18 @@
       >
       } @else if (obterStatusAtual(vacina) == 'Atrasada') {
       <ion-card-content class="card-vermelho">Atrasada</ion-card-content>
-      <ion-button
-        fill="outline"
-        shape="round"
-        color="success"
-        (click)="abriConfirmacaoAplicacao(vacina)"
-        >Marcar como Aplicada</ion-button
-      >
+      <div class="container-botao">
+        <ion-button shape="round" (click)="abriConfirmacaoAplicacao(vacina)"
+          >Marcar como Aplicada</ion-button
+        >
+      </div>
       } @else {
       <ion-card-content class="card-amarelo">Pendente</ion-card-content>
-      <ion-button
-        fill="outline"
-        shape="round"
-        color="success"
-        (click)="abriConfirmacaoAplicacao(vacina)"
-        >Marcar como Aplicada</ion-button
-      >
+      <div class="container-botao">
+        <ion-button shape="round" (click)="abriConfirmacaoAplicacao(vacina)"
+          >Marcar como Aplicada</ion-button
+        >
+      </div>
       }
     </ion-card>
     }@empty {

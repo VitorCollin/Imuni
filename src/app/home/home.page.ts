@@ -35,7 +35,6 @@ import { mapOutline, arrowForwardOutline } from 'ionicons/icons';
   imports: [
     IonItem,
     IonIcon,
-    IonListHeader,
     IonLabel,
     IonCardContent,
     IonChip,
